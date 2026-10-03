@@ -85,7 +85,7 @@ Por ser uma aplicação web estática, não há dependência de gerenciadores de
 | **Hiago Melo** | *Coordenação & Desenvolvimento* | [@mkzzo](https://github.com/mkzzo) | [Perfil](https://www.linkedin.com/in/hiago-melo-989033258/) |
 | **Kalil Rodrigues** | *Frontend & CSS* | [@Kalil-1Rodrigues](https://github.com/Kalil-1Rodrigues) | [Perfil](https://linkedin.com/in/) |
 | **Guilherme Honoria** | *Pesquisa de Dados & Conteúdo* | [@Guimarks08](https://github.com/Guimarks08) | [Perfil](https://www.linkedin.com/in/guilherme-marques-hon%C3%B3ria-173928312/) |
-| **Matheus Sena** | *Módulos de Áudio & Gráficos* | [@user4](https://github.com/) | [Perfil](https://www.linkedin.com/in/matheusenadev/) |
+| **Matheus Sena** | *Módulos de Áudio & Gráficos* | [@matheusena0503-prog](https://github.com/matheusena0503-prog) | [Perfil](https://www.linkedin.com/in/matheusenadev/) |
 | **Matheus Melo** | *Linha do Tempo & Testes* | [@user5](https://github.com/) | [Perfil](https://linkedin.com/in/) |
 
 ---
