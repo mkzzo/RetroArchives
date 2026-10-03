@@ -71,7 +71,7 @@ Por ser uma aplicação web estática, não há dependência de gerenciadores de
 
 1. Clone ou descompacte o repositório em sua máquina:
    ```bash
-   git clone <URL_DO_REPOSITORIO>
+   git clone https://github.com/mkzzo/RetroArchives
    ```
 2. Abra o arquivo `index.html` em qualquer navegador web moderno:
    - Dica: você também pode usar a extensão **Live Server** no VS Code para desenvolvimento local.
@@ -82,16 +82,16 @@ Por ser uma aplicação web estática, não há dependência de gerenciadores de
 
 | Integrante | Função / Responsabilidade | GitHub | LinkedIn |
 | :--- | :--- | :--- | :--- |
-| **[Seu Nome Aqui]** | *[Ex: Coordenação & Desenvolvimento]* | [@mkzzo](https://github.com/mkzzo) | [Perfil](https://www.linkedin.com/in/hiago-melo-989033258/) |
-| **[Nome Integrante 2]** | *[Ex: Frontend & CSS]* | [@user2](https://github.com/) | [Perfil](https://linkedin.com/in/) |
-| **[Nome Integrante 3]** | *[Ex: Pesquisa de Dados & Conteúdo]* | [@user3](https://github.com/) | [Perfil](https://linkedin.com/in/) |
-| **[Nome Integrante 4]** | *[Ex: Módulos de Áudio & Gráficos]* | [@user4](https://github.com/) | [Perfil](https://linkedin.com/in/) |
-| **[Nome Integrante 5]** | *[Ex: Linha do Tempo & Testes]* | [@user5](https://github.com/) | [Perfil](https://linkedin.com/in/) |
+| **Hiago Melo** | *Coordenação & Desenvolvimento* | [@mkzzo](https://github.com/mkzzo) | [Perfil](https://www.linkedin.com/in/hiago-melo-989033258/) |
+| **Kalil Rodrigues** | *Frontend & CSS* | [@Kalil-1Rodrigues](https://github.com/Kalil-1Rodrigues) | [Perfil](https://linkedin.com/in/) |
+| **Guilherme Honoria** | *Pesquisa de Dados & Conteúdo* | [@Guimarks08](https://github.com/Guimarks08) | [Perfil](https://www.linkedin.com/in/guilherme-marques-hon%C3%B3ria-173928312/) |
+| **Matheus Sena** | *Módulos de Áudio & Gráficos* | [@user4](https://github.com/) | [Perfil](https://www.linkedin.com/in/matheusenadev/) |
+| **Matheus Melo** | *Linha do Tempo & Testes* | [@user5](https://github.com/) | [Perfil](https://linkedin.com/in/) |
 
 ---
 
 ## 📝 Licença e Observações
 
-- **Disciplina/Instituição:** *[Desenvolvimento front-end para web / Engenharia de Software / Unicid]*
+- **Disciplina/Instituição:** *Desenvolvimento front-end para web / Engenharia de Software / Unicid*
 - **Status do Projeto:** Em desenvolvimento
 - Este projeto foi desenvolvido com finalidade puramente educacional e de preservação histórica.
