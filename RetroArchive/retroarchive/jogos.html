@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RetroArchive — Museu Virtual de Games Retrô</title>
+<meta name="description" content="RetroArchive: museu virtual interativo sobre a história dos videogames, com jogos jogáveis, consoles, dossiês e laboratórios de gráficos e som.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/home.css">
+</head>
+<body data-page="jogos">
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="brand">
+        <svg class="brand__logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="10" width="36" height="22" rx="4" stroke="#f0c62a" stroke-width="2.5"/>
+          <path d="M13 16v12M7 22h12" stroke="#f0c62a" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="27" cy="19" r="2" fill="#f0c62a"/>
+          <circle cx="32" cy="24" r="2" fill="#f0c62a"/>
+        </svg>
+        <span>
+          <span class="brand__name">RetroArchive</span>
+          <span class="brand__tag">Historical ROM Vault</span>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="Navegação principal">
+        <a class="main-nav__link" data-nav="inicio" href="index.html">Início</a>
+        <a class="main-nav__link" data-nav="jogos" href="jogos.html">Jogos Marcantes</a>
+        <a class="main-nav__link" data-nav="consoles" href="consoles.html">Consoles &amp; Hardware</a>
+        <a class="main-nav__link" data-nav="timeline" href="timeline.html">Linha do Tempo</a>
+        <a class="main-nav__link" data-nav="graficos" href="graficos.html">Lab Gráfico &amp; CRT</a>
+        <a class="main-nav__link" data-nav="audio" href="audio.html">Jukebox &amp; Síntese</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Navegação mobile">
+      <a class="mobile-nav__link" data-nav="inicio" href="index.html">Início</a>
+      <a class="mobile-nav__link" data-nav="jogos" href="jogos.html">Jogos Marcantes</a>
+      <a class="mobile-nav__link" data-nav="consoles" href="consoles.html">Consoles &amp; Hardware</a>
+      <a class="mobile-nav__link" data-nav="timeline" href="timeline.html">Linha do Tempo</a>
+      <a class="mobile-nav__link" data-nav="graficos" href="graficos.html">Lab Gráfico &amp; CRT</a>
+      <a class="mobile-nav__link" data-nav="audio" href="audio.html">Jukebox &amp; Síntese</a>
+    </nav>
+  </header>
+
+  <main class="jogos">
+
+    <section class="section hero">
+      <div class="container">
+        <div class="eyebrow hero__eyebrow">ARQUIVO HISTÓRICO INTERATIVO</div>
+        <h1>Um museu virtual da história dos videogames</h1>
+        <p>Do TIA de 128 bytes do Atari 2600 aos SSDs do PS5. Explore consoles, dossiês de jogos marcantes,
+          uma linha do tempo e laboratórios de gráficos e som — e jogue duas relíquias em canvas puro, direto no navegador.</p>
+        <div class="hero__actions">
+          <a href="#arcade" class="btn btn--primary">Jogar Asteroids</a>
+          <a href="consoles.html" class="btn btn--ghost">Ver Consoles &amp; Hardware</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" id="arcade">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">GABINETE 01 // VETORIAL</div>
+          <h2>Asteroids</h2>
+          <p>Gire com A/D ou as setas, acelere com W/Seta para cima e atire com Espaço. Sobreviva às ondas de asteroides.</p>
+        </div>
+        <div class="arcade-cabinet">
+          <div class="arcade-cabinet__hud">
+            <span>PONTUAÇÃO: <strong id="asteroids-score">0</strong></span>
+            <span>RECORDE: <strong id="asteroids-hiscore">0</strong></span>
+            <span>VIDAS: <strong id="asteroids-lives">▲▲▲</strong></span>
+          </div>
+          <div class="arcade-screen">
+            <canvas id="asteroids-canvas" width="640" height="420"></canvas>
+            <div class="arcade-overlay" id="asteroids-overlay">
+              <p data-overlay-text>PRESSIONE INICIAR PARA JOGAR</p>
+              <button class="btn btn--primary" id="asteroids-start-btn" type="button">Iniciar Jogo</button>
+            </div>
+          </div>
+          <div class="arcade-controls">
+            <button class="btn--icon" id="ctrl-left" type="button" aria-label="Girar à esquerda">◀</button>
+            <button class="btn--icon" id="ctrl-thrust" type="button" aria-label="Acelerar">▲</button>
+            <button class="btn--icon" id="ctrl-fire" type="button" aria-label="Atirar">●</button>
+            <button class="btn--icon" id="ctrl-right" type="button" aria-label="Girar à direita">▶</button>
+          </div>
+          <p class="arcade-hint">Teclado: A/D ou ← → giram · W ou ↑ acelera · Espaço atira</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">GABINETE 02 // RASTER</div>
+          <h2>Pong</h2>
+          <p>Controle sua raquete com o mouse, o toque ou as teclas W/S. A CPU joga com uma leve margem de erro.</p>
+        </div>
+        <div class="pong-table">
+          <div class="pong-scoreboard">
+            <div><span class="pong-scoreboard__score" id="pong-score-player">0</span><span class="pong-scoreboard__label">Você</span></div>
+            <div><span class="pong-scoreboard__score" id="pong-score-cpu">0</span><span class="pong-scoreboard__label">CPU</span></div>
+          </div>
+          <canvas id="pong-canvas" width="640" height="360"></canvas>
+          <div style="display:flex;justify-content:center;">
+            <button class="btn btn--ghost" id="pong-reset-btn" type="button">Reiniciar Partida</button>
+          </div>
+          <p class="pong-hint">Mouse, toque ou teclas W / S</p>
+        </div>
+      </div>
+    </section>
+
+    
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <span>© <span id="year"></span> RetroArchive — projeto de arquivo histórico sem fins comerciais</span>
+      <span>Construído com HTML, CSS e JavaScript</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+/* =========================================================
+   RetroArchive — consoles.css
+   Estilos exclusivos da página "Consoles & Hardware".
+   ========================================================= */
+
+.consoles-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.consoles-toolbar .field {
+  max-width: 320px;
+  flex: 1;
+}
+
+.consoles-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.console-card {
+  cursor: pointer;
+  position: relative; /* precisa pra o selo numerado (①/②) se posicionar dentro do card */
+}
+
+/* ---------- Modo comparação: toggle e barra de status ---------- */
+#compare-toggle {
+  padding: var(--space-xs) var(--space-md); /* era space-2xs/space-sm — área de clique maior */
+  min-width: 160px;
+  font-size: 12px; /* trava o tamanho do texto no padrão do .btn, não deixa herdar nada maior */
+}
+
+#compare-toggle svg {
+  width: 18px; /* ícone acompanha o botão maior (era 14px) */
+  height: 18px;
+}
+
+#compare-toggle.is-active {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border-color: var(--color-accent);
+}
+
+.compare-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  background: var(--color-bg-terminal);
+  border: 1px dashed var(--color-border-light);
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs) var(--space-sm);
+  margin-bottom: var(--space-md);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-primary);
+}
+
+/* o atributo HTML "hidden" já tira do layout, isso aqui é só reforço */
+.compare-bar[hidden] {
+  display: none;
+}
+
+/* ---------- Selo numerado nos cards selecionados ---------- */
+.console-card__pick {
+  display: none;
+  position: absolute;
+  top: var(--space-2xs);
+  right: var(--space-2xs);
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  z-index: 1;
+}
+
+.console-card.is-selected {
+  border-color: var(--color-accent);
+  box-shadow: var(--glow-accent);
+}
+
+.console-card.is-selected .console-card__pick {
+  display: flex;
+}
+
+/* ---------- Modal de comparação ---------- */
+.modal--compare {
+  max-width: 860px;
+}
+
+.compare-heads {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.compare-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  text-align: center;
+}
+
+.compare-head .tile {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.compare-head h4 {
+  font-size: 1rem;
+  color: var(--color-text-bright);
+}
+
+.compare-vs {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-accent);
+}
+
+.compare-table {
+  display: grid;
+  grid-template-columns: 110px 1fr 1fr;
+  gap: 1px;
+  background: var(--color-border);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  font-size: 13px;
+}
+
+.compare-table > div {
+  background: var(--color-bg-terminal);
+  padding: var(--space-2xs) var(--space-xs);
+}
+
+.compare-row-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+}
+
+/* quando os dois valores da linha são diferentes, destaca em âmbar —
+   ajuda a bater o olho e ver rápido onde os HWs divergem */
+.compare-cell.is-diff {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.compare-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  justify-content: flex-end;
+}
+
+@media (max-width: 640px) {
+  .compare-table {
+    grid-template-columns: 86px 1fr 1fr;
+    font-size: 12px;
+  }
+}
