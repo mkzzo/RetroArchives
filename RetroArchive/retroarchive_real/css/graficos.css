@@ -1,0 +1,104 @@
+/* =========================================================
+   RetroArchive — graficos.css
+   Estilos exclusivos do "Lab Gráfico & CRT": comparação
+   vetor/raster e os efeitos de tela CRT aplicados via CSS.
+   ========================================================= */
+
+:root {
+  --scanline-opacity: 0.25;
+  --bloom-blur: 3px;
+  --bloom-alpha: 0.3;
+}
+
+.crt-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-md);
+}
+
+.crt-scope {
+  background: var(--color-bg-terminal);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.crt-scope__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  text-align: center;
+}
+
+.crt-screen {
+  position: relative;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: border-radius 0.3s ease, box-shadow 0.3s ease;
+}
+
+.crt-screen canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 0 var(--bloom-blur) rgba(240, 198, 42, var(--bloom-alpha)));
+}
+
+.crt-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, var(--scanline-opacity)) 0,
+    rgba(0, 0, 0, var(--scanline-opacity)) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+.crt-scope.is-curved .crt-screen {
+  border-radius: 40px / 26px;
+  box-shadow: inset 0 0 60px 18px rgba(0, 0, 0, 0.75);
+}
+
+.lab-controls {
+  background: var(--color-bg-terminal);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-top: var(--space-md);
+}
+
+.lab-control {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+}
+
+.lab-control label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.lab-control input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-accent);
+}
+
+.explainer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}

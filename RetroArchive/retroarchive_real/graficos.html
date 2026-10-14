@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Gráfico &amp; CRT — RetroArchive</title>
+<meta name="description" content="Laboratório interativo: displays de raios catódicos, a diferença entre vetor e raster, e controles reais de scanlines, bloom e curvatura de tela.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/graficos.css">
+</head>
+<body data-page="graficos">
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="brand">
+        <svg class="brand__logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="10" width="36" height="22" rx="4" stroke="#f0c62a" stroke-width="2.5"/>
+          <path d="M13 16v12M7 22h12" stroke="#f0c62a" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="27" cy="19" r="2" fill="#f0c62a"/>
+          <circle cx="32" cy="24" r="2" fill="#f0c62a"/>
+        </svg>
+        <span>
+          <span class="brand__name">RetroArchive</span>
+          <span class="brand__tag">Historical ROM Vault</span>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="Navegação principal">
+        <a class="main-nav__link" data-nav="inicio" href="index.html">Início</a>
+        <a class="main-nav__link" data-nav="jogos" href="jogos.html">Jogos Marcantes</a>
+        <a class="main-nav__link" data-nav="consoles" href="consoles.html">Consoles &amp; Hardware</a>
+        <a class="main-nav__link" data-nav="timeline" href="timeline.html">Linha do Tempo</a>
+        <a class="main-nav__link" data-nav="graficos" href="graficos.html">Lab Gráfico &amp; CRT</a>
+        <a class="main-nav__link" data-nav="audio" href="audio.html">Jukebox &amp; Síntese</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Navegação mobile">
+      <a class="mobile-nav__link" data-nav="inicio" href="index.html">Início</a>
+      <a class="mobile-nav__link" data-nav="jogos" href="jogos.html">Jogos Marcantes</a>
+      <a class="mobile-nav__link" data-nav="consoles" href="consoles.html">Consoles &amp; Hardware</a>
+      <a class="mobile-nav__link" data-nav="timeline" href="timeline.html">Linha do Tempo</a>
+      <a class="mobile-nav__link" data-nav="graficos" href="graficos.html">Lab Gráfico &amp; CRT</a>
+      <a class="mobile-nav__link" data-nav="audio" href="audio.html">Jukebox &amp; Síntese</a>
+    </nav>
+  </header>
+
+  <main class="site-main">
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">DISPLAYS DE RAIOS CATÓDICOS</div>
+          <h2>Lab Gráfico &amp; CRT</h2>
+          <p>Duas famílias de imagem eletrônica coexistiram nos fliperamas e consoles: o feixe vetorial, que desenha linhas diretamente, e a matriz raster, que preenche uma grade de pixels. Compare as duas ao vivo e ajuste os efeitos de um tubo CRT real.</p>
+        </div>
+
+        <div class="crt-compare">
+          <div class="crt-scope" id="scope-vector">
+            <span class="crt-scope__label">Vetorial (ex.: Asteroids, Battlezone)</span>
+            <div class="crt-screen">
+              <canvas id="vector-canvas" width="360" height="280"></canvas>
+            </div>
+          </div>
+          <div class="crt-scope" id="scope-raster">
+            <span class="crt-scope__label">Raster (ex.: NES, Master System)</span>
+            <div class="crt-screen">
+              <canvas id="raster-canvas" width="360" height="280"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="lab-controls">
+          <div class="lab-control">
+            <label for="scanline-intensity">Intensidade das scanlines</label>
+            <input type="range" id="scanline-intensity" min="0" max="100" value="25">
+          </div>
+          <div class="lab-control">
+            <label for="bloom-intensity">Bloom do fósforo</label>
+            <input type="range" id="bloom-intensity" min="0" max="100" value="35">
+          </div>
+          <div class="lab-control">
+            <label>Curvatura de tela</label>
+            <button class="filter-btn" id="curvature-toggle" type="button">Curvatura: Desligada</button>
+          </div>
+        </div>
+
+        <div class="explainer-grid">
+          <div class="card">
+            <h3 style="font-family:var(--font-display);">Feixe vetorial</h3>
+            <p style="font-size:14px;color:var(--color-text-muted);">O canhão de elétrons é direcionado ponto a ponto para desenhar contornos com precisão quase infinita, sem depender de uma grade fixa de pixels. É por isso que jogos vetoriais como Asteroids têm linhas tão nítidas mesmo em movimento — o custo é a dificuldade de preencher áreas sólidas com cor.</p>
+          </div>
+          <div class="card">
+            <h3 style="font-family:var(--font-display);">Matriz raster</h3>
+            <p style="font-size:14px;color:var(--color-text-muted);">O feixe varre a tela em linhas horizontais fixas, acendendo ou apagando pontos de fósforo em uma grade regular — o mesmo princípio de uma TV comum. Essa abordagem é mais barata de produzir em massa e permite preencher sprites e cenários com cor sólida, ao custo de uma resolução limitada.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <span>© <span id="year"></span> RetroArchive — projeto de arquivo histórico sem fins comerciais</span>
+      <span>Construído com HTML, CSS e JavaScript</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/graficos.js"></script>
+</body>
+</html>

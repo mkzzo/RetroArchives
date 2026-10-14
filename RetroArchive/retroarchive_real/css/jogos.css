@@ -1,0 +1,53 @@
+/* =========================================================
+   RetroArchive — jogos.css
+   Estilos exclusivos da página "Jogos Marcantes".
+   ========================================================= */
+
+.games-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.games-toolbar .field {
+  max-width: 280px;
+  flex: 1;
+}
+
+.game-card {
+  cursor: pointer;
+}
+
+.hardware-section {
+  margin-top: var(--space-2xl);
+}
+
+.pillars-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding-left: var(--space-sm);
+}
+
+.pillars-list li {
+  list-style: disc;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+/* ---------- Aba "Jogar agora" ---------- */
+.game-frame {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto; /* alguns jogos têm largura nativa grande (ex.: DOOM) */
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.game-frame iframe {
+  display: block;
+  max-width: 100%;
+}
