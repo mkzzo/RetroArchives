@@ -1,0 +1,130 @@
+/* =========================================================
+   RetroArchive — audio.css
+   Estilos exclusivos do "Jukebox & Síntese": seletor de
+   chips, osciloscópio e VU meter.
+   ========================================================= */
+
+.jukebox {
+  background: var(--color-bg-terminal);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.chip-select {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-xs);
+}
+
+.chip-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3xs);
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  text-align: left;
+}
+
+.chip-btn strong {
+  font-family: var(--font-display);
+  color: var(--color-text-bright);
+}
+
+.chip-btn span {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.chip-btn.is-active {
+  border-color: var(--color-accent);
+  box-shadow: var(--glow-accent);
+}
+
+.jukebox-transport {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.jukebox-status {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-primary);
+  text-transform: uppercase;
+}
+
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-left: auto;
+}
+
+.volume-control label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.volume-control input[type="range"] {
+  accent-color: var(--color-accent);
+}
+
+.scope-panel {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-sm);
+  align-items: stretch;
+}
+
+#oscilloscope-canvas {
+  width: 100%;
+  height: auto;
+  background: #050807;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.vu-meter {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 3px;
+  background: #050807;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2xs);
+}
+
+.vu-bar {
+  height: 8px;
+  border-radius: 2px;
+  background: var(--color-accent);
+  opacity: 0.15;
+  transition: opacity 0.08s linear;
+}
+
+.vu-bar:nth-last-child(-n + 3) {
+  background: var(--color-danger);
+}
+
+@media (max-width: 640px) {
+  .scope-panel {
+    grid-template-columns: 1fr;
+  }
+  .vu-meter {
+    flex-direction: row;
+  }
+  .vu-bar {
+    height: auto;
+    width: 8px;
+  }
+}
