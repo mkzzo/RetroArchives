@@ -45,9 +45,13 @@
   overflow-x: auto; /* alguns jogos têm largura nativa grande (ex.: DOOM) */
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
+  background: #000000;
+  display: flex;
+  justify-content: center;
 }
 
 .game-frame iframe {
   display: block;
   max-width: 100%;
+  border: none;
 }

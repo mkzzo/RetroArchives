@@ -1,19 +1,11 @@
 /* =========================================================
    RetroArchive — game-players.js
    Registro central dos iframes jogáveis de cada jogo. Chave =
-   id do jogo (mesmo id de jogos-data.js). jogos.js só monta o
-   <iframe> quando o usuário clica em "Jogar agora", pra não
-   carregar 6 jogos pesados de uma vez na página.
-
-   AVISO IMPORTANTE: 3 dos 6 links do material de referência
-   apontam pra HOMEPAGE genérica do site (retrogames.cc ou
-   archive.org), sem o caminho específico do jogo — ou seja,
-   vão abrir o site, não a partida em si. Marquei esses com
-   "placeholder: true" e um aviso que aparece pro usuário antes
-   de carregar o iframe, em vez de fingir que funciona.
+   id do jogo (mesmo id de jogos-data.js). jogos.js monta o
+   <iframe> sob demanda quando o usuário clica em "Iniciar Emulador".
    ========================================================= */
 const GAME_PLAYERS = {
-  // Pac-Man — link específico, com parâmetro de embed
+  // Pac-Man (1980) — HTML5 Canvas
   pacman: {
     src: "https://funhtml5games.com?embed=pacman",
     width: 342,
@@ -21,28 +13,31 @@ const GAME_PLAYERS = {
     placeholder: false
   },
 
-  // The Legend of Zelda — o material só trouxe a home do retrogames.cc,
-  // sem o slug do jogo específico
+  // The Legend of Zelda (1986) — NES / Famicom
   zelda: {
-    src: "https://retrogames.cc",
+    src: "https://www.retrogames.cc/embed/46280-zelda-no-densetsu-the-hyrule-fantasy-japan-rev-1.html",
     width: 600,
     height: 450,
-    placeholder: true,
-    placeholderNote:
-      "Este link ainda aponta só pra home do RetroGames.cc, não pra partida específica de Zelda — troque pelo endereço /embed/... do jogo quando tiver em mãos."
+    placeholder: false
   },
 
-  // Street Fighter II — o material só trouxe a home do archive.org
+  // Street Fighter II: The World Warrior (1991) — Arcade CPS-1
   sf2: {
-    src: "https://archive.org",
-    width: 640,
-    height: 480,
-    placeholder: true,
-    placeholderNote:
-      "Este link ainda aponta só pra home do Archive.org, não pro emulador do jogo em si — troque pelo endereço /embed/... da partida quando tiver em mãos."
+    src: "https://www.retrogames.cc/embed/9984-street-fighter-ii-the-world-warrior-910214-usa.html",
+    width: 600,
+    height: 450,
+    placeholder: false
   },
 
-  // DOOM — link específico pro executável via js-dos
+  // Sonic the Hedgehog (1991) — Sega Master System (8-bit)
+  "sonic-sms": {
+    src: "https://www.retrogames.cc/embed/30899-sonic-the-hedgehog-usa-europe.html",
+    width: 600,
+    height: 450,
+    placeholder: false
+  },
+
+  // DOOM (1993) — PC MS-DOS via JS-DOS WebAssembly
   doom: {
     src: "https://js-dos.com/games/doom.exe.html",
     width: 1024,
@@ -50,19 +45,33 @@ const GAME_PLAYERS = {
     placeholder: false
   },
 
-  // Pokémon Red & Blue — mesmo problema do Zelda: home genérica
-  pokemon: {
-    src: "https://retrogames.cc",
+  // Super Bomberman (1993) — Super Nintendo (SNES)
+  bomberman: {
+    src: "https://www.retrogames.cc/embed/24792-super-bomberman-europe.html",
     width: 600,
     height: 450,
-    placeholder: true,
-    placeholderNote:
-      "Este link ainda aponta só pra home do RetroGames.cc, não pra partida específica de Pokémon — troque pelo endereço /embed/... do jogo quando tiver em mãos."
+    placeholder: false
   },
 
-  // Castlevania: Symphony of the Night — link específico com slug do jogo
+  // Pokémon (1996) — Game Boy
+  pokemon: {
+    src: "https://www.retrogames.cc/embed/42834-pokemon-fire-red-extended-v2-0-4.html",
+    width: 600,
+    height: 450,
+    placeholder: false
+  },
+
+  // Castlevania: Symphony of the Night (1997) — PlayStation
   castlevania: {
     src: "https://www.retrogames.cc/embed/44460-castlevania-symphony-of-the-night-quality-hack.html",
+    width: 600,
+    height: 450,
+    placeholder: false
+  },
+
+  // Super Smash Bros. (1999) — Nintendo 64
+  smash64: {
+    src: "https://www.retrogames.cc/embed/32117-super-smash-bros-usa.html",
     width: 600,
     height: 450,
     placeholder: false

@@ -1,12 +1,12 @@
 /* =========================================================
    RetroArchive — audio.js
-   Jukebox chiptune real usando a Web Audio API: cada "chip"
-   histórico é aproximado por um tipo de onda de oscilador e
-   uma pequena sequência de notas, com osciloscópio e VU
-   meter ligados a um AnalyserNode.
+   Jukebox chiptune e sintetizador histórico usando a Web Audio API:
+   recriação procedural de melodias clássicas e timbres de hardware
+   com osciloscópio e VU meter ligados a um AnalyserNode.
    ========================================================= */
 (function () {
   "use strict";
+
   const playBtns = document.querySelectorAll("[data-chip]");
   const stopBtn = document.getElementById("jukebox-stop");
   const volumeSlider = document.getElementById("jukebox-volume");
@@ -15,30 +15,99 @@
   const vuBars = document.querySelectorAll(".vu-bar");
   if (!playBtns.length || !scopeCanvas) return;
 
-  const NOTE_FREQ = { C4: 261.6, D4: 293.7, E4: 329.6, G4: 392.0, A4: 440.0, C5: 523.3, D5: 587.3, E5: 659.3 };
+  // Tabela completa de frequências em Hertz
+  const NOTE_FREQ = {
+    // Oitava 3
+    C3: 130.81, Cs3: 138.59, D3: 146.83, Ds3: 155.56, E3: 164.81, F3: 174.61, Fs3: 185.00, G3: 196.00, Gs3: 207.65, A3: 220.00, As3: 233.08, B3: 246.94,
+    // Oitava 4
+    C4: 261.63, Cs4: 277.18, D4: 293.66, Ds4: 311.13, E4: 329.63, F4: 349.23, Fs4: 369.99, G4: 392.00, Gs4: 415.30, A4: 440.00, As4: 466.16, B4: 493.88,
+    // Oitava 5
+    C5: 523.25, Cs5: 554.37, D5: 587.33, Ds5: 622.25, E5: 659.25, F5: 698.46, Fs5: 739.99, G5: 783.99, Gs5: 830.61, A5: 880.00, As5: 932.33, B5: 987.77,
+    // Oitava 6
+    C6: 1046.50, Cs6: 1108.73, D6: 1174.66, Ds6: 1244.51, E6: 1318.51, F6: 1396.91, Fs6: 1479.98, G6: 1567.98, A6: 1760.00, B6: 1975.53
+  };
 
-  const CHIPS = {
+  const TRACKS = {
+    // --- Músicas Marcantes dos Games ---
+    mario: {
+      label: "Super Mario Bros (Overworld)",
+      waveform: "square",
+      baseMs: 115,
+      sequence: [
+        ["E5", 1], ["E5", 1], ["REST", 1], ["E5", 1], ["REST", 1], ["C5", 1], ["E5", 2],
+        ["G5", 2], ["REST", 2], ["G4", 2], ["REST", 2],
+        ["C5", 3], ["REST", 1], ["G4", 3], ["REST", 1], ["E4", 3], ["REST", 1],
+        ["A4", 2], ["B4", 2], ["As4", 1], ["A4", 2],
+        ["G4", 1.5], ["E5", 1.5], ["G5", 1.5], ["A5", 2], ["F5", 1], ["G5", 1],
+        ["REST", 1], ["E5", 2], ["C5", 1], ["D5", 1], ["B4", 2], ["REST", 2]
+      ]
+    },
+    pacman: {
+      label: "Pac-Man (Tema de Abertura)",
+      waveform: "triangle",
+      baseMs: 125,
+      sequence: [
+        ["B4", 1], ["B5", 1], ["Fs5", 1], ["Ds5", 1], ["B5", 1], ["Fs5", 1], ["Ds5", 2],
+        ["C5", 1], ["C6", 1], ["G5", 1], ["E5", 1], ["C6", 1], ["G5", 1], ["E5", 2],
+        ["B4", 1], ["B5", 1], ["Fs5", 1], ["Ds5", 1], ["B5", 1], ["Fs5", 1], ["Ds5", 2],
+        ["Ds5", 0.5], ["E5", 0.5], ["F5", 0.5], ["REST", 0.5],
+        ["F5", 0.5], ["Fs5", 0.5], ["G5", 0.5], ["REST", 0.5],
+        ["G5", 0.5], ["Gs5", 0.5], ["A5", 0.5], ["REST", 0.5],
+        ["B5", 2], ["REST", 3]
+      ]
+    },
+    megaman: {
+      label: "Mega Man 2 (Dr. Wily Stage 1)",
+      waveform: "square",
+      baseMs: 125,
+      sequence: [
+        ["Ds4", 1], ["Ds4", 1], ["Fs4", 1], ["Gs4", 1], ["As4", 2], ["Gs4", 1], ["Fs4", 1],
+        ["Ds4", 1], ["Ds4", 1], ["Fs4", 1], ["Gs4", 1], ["As4", 2], ["B4", 1], ["As4", 1],
+        ["Gs4", 1], ["Fs4", 1], ["Gs4", 1], ["As4", 1], ["B4", 2], ["As4", 1], ["Gs4", 1],
+        ["Fs4", 1], ["Ds4", 1], ["Fs4", 1], ["Gs4", 1], ["As4", 3], ["REST", 1]
+      ]
+    },
+    sonic: {
+      label: "Sonic the Hedgehog (Green Hill Zone)",
+      waveform: "sawtooth",
+      baseMs: 135,
+      sequence: [
+        ["D5", 2], ["C5", 2], ["B4", 2], ["A4", 2], ["B4", 2], ["G4", 3], ["REST", 1],
+        ["D5", 2], ["C5", 2], ["B4", 2], ["A4", 2], ["B4", 2], ["G4", 3], ["REST", 1],
+        ["E5", 2], ["D5", 2], ["C5", 2], ["B4", 2], ["C5", 2], ["A4", 3], ["REST", 1],
+        ["D5", 2], ["C5", 2], ["B4", 2], ["A4", 2], ["B4", 4], ["REST", 2]
+      ]
+    },
+
+    // --- Simulação dos Chips Históricos ---
     tia: {
       label: "Atari TIA (1977)",
       waveform: "square",
-      sequence: ["C4", "E4", "G4", "C5", "G4", "E4"],
-      noteMs: 180
+      baseMs: 180,
+      sequence: [
+        ["C4", 1], ["E4", 1], ["G4", 1], ["C5", 1], ["G4", 1], ["E4", 1]
+      ]
     },
     psg: {
-      label: "PSG NES/SMS (1985)",
+      label: "PSG NES / Master System (1985)",
       waveform: "square",
-      sequence: ["E4", "G4", "A4", "C5", "A4", "G4", "E4", "D4"],
-      noteMs: 140
+      baseMs: 140,
+      sequence: [
+        ["E4", 1], ["G4", 1], ["A4", 1], ["C5", 1], ["A4", 1], ["G4", 1], ["E4", 1], ["D4", 1]
+      ]
     },
     fm: {
       label: "FM Synth Mega Drive (1988)",
       waveform: "sawtooth",
-      sequence: ["A4", "C5", "E5", "D5", "C5", "A4"],
-      noteMs: 200
+      baseMs: 200,
+      sequence: [
+        ["A4", 1], ["C5", 1], ["E5", 1], ["D5", 1], ["C5", 1], ["A4", 1]
+      ]
     }
   };
 
   let ctx, analyser, masterGain, timer, activeOsc = [];
+  let isPlaying = false;
 
   function ensureContext() {
     if (!ctx) {
@@ -54,7 +123,11 @@
   }
 
   function stopAll() {
-    clearInterval(timer);
+    isPlaying = false;
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
     activeOsc.forEach((o) => {
       try { o.stop(); } catch (e) { /* já parado */ }
     });
@@ -64,40 +137,62 @@
   }
 
   function playNote(freq, waveform, durationMs) {
+    if (!ctx) return;
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = waveform;
-    osc.frequency.value = freq;
-    gain.gain.setValueAtTime(0.22, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + durationMs / 1000);
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+
+    // Envelope rápido característico de chiptune (ataque instantâneo e decaimento exponencial)
+    const attackTime = 0.005;
+    const decayTime = Math.max(0.02, (durationMs / 1000) - attackTime);
+    gain.gain.setValueAtTime(0.001, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.24, ctx.currentTime + attackTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + attackTime + decayTime);
+
     osc.connect(gain);
     gain.connect(masterGain);
     osc.start();
-    osc.stop(ctx.currentTime + durationMs / 1000 + 0.02);
+    osc.stop(ctx.currentTime + (durationMs / 1000) + 0.05);
+
     activeOsc.push(osc);
     osc.addEventListener("ended", () => {
       activeOsc = activeOsc.filter((o) => o !== osc);
     });
   }
 
-  function playChip(key) {
+  function playTrack(key) {
     ensureContext();
     stopAll();
-    const chip = CHIPS[key];
-    if (!chip) return;
-    if (statusEl) statusEl.textContent = `TOCANDO: ${chip.label}`;
+    const track = TRACKS[key];
+    if (!track) return;
+
+    isPlaying = true;
+    if (statusEl) statusEl.textContent = `TOCANDO: ${track.label}`;
     playBtns.forEach((b) => b.classList.toggle("is-active", b.dataset.chip === key));
 
-    let step = 0;
-    playNote(NOTE_FREQ[chip.sequence[0]], chip.waveform, chip.noteMs);
-    timer = setInterval(() => {
-      step = (step + 1) % chip.sequence.length;
-      playNote(NOTE_FREQ[chip.sequence[step]], chip.waveform, chip.noteMs);
-    }, chip.noteMs);
+    let stepIndex = 0;
+
+    function scheduleNext() {
+      if (!isPlaying) return;
+      const item = track.sequence[stepIndex];
+      const noteName = Array.isArray(item) ? item[0] : item;
+      const mult = Array.isArray(item) ? item[1] : 1;
+      const duration = track.baseMs * mult;
+
+      if (noteName !== "REST" && NOTE_FREQ[noteName]) {
+        playNote(NOTE_FREQ[noteName], track.waveform, duration * 0.92);
+      }
+
+      stepIndex = (stepIndex + 1) % track.sequence.length;
+      timer = setTimeout(scheduleNext, duration);
+    }
+
+    scheduleNext();
   }
 
   playBtns.forEach((btn) => {
-    btn.addEventListener("click", () => playChip(btn.dataset.chip));
+    btn.addEventListener("click", () => playTrack(btn.dataset.chip));
   });
 
   stopBtn?.addEventListener("click", stopAll);
@@ -115,7 +210,7 @@
     sctx.fillStyle = "#050807";
     sctx.fillRect(0, 0, scopeCanvas.width, scopeCanvas.height);
 
-    if (!analyser) {
+    if (!analyser || !isPlaying) {
       sctx.strokeStyle = "rgba(176,205,189,0.3)";
       sctx.beginPath();
       sctx.moveTo(0, scopeCanvas.height / 2);
@@ -140,8 +235,11 @@
     sctx.stroke();
 
     const rms = Math.sqrt(sumSquares / timeData.length);
-    const litBars = Math.round(rms * vuBars.length * 3.2);
-    vuBars.forEach((bar, i) => (bar.style.opacity = i < litBars ? 1 : 0.15));
+    const litCount = Math.min(vuBars.length, Math.floor(rms * vuBars.length * 4.5));
+    vuBars.forEach((bar, idx) => {
+      bar.style.opacity = idx < litCount ? "1" : "0.15";
+    });
   }
+
   drawScope();
 })();

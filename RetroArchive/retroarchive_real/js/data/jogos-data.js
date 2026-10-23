@@ -74,6 +74,29 @@ const GAMES = [
     triviaExtra: "A frase 'You must defeat Sheng Long to stand a chance' foi um erro de tradução que alimentou décadas de mitos em revistas de videogame."
   },
   {
+    id: "sonic-sms",
+    title: "Sonic the Hedgehog (8-bit)",
+    year: 1991,
+    category: "console",
+    categoryLabel: "Console (8-bit)",
+    impact: 92,
+    platform: "Sega Master System",
+    dev: "Ancient / Yuzo Koshiro & Sega",
+    romDetail: "2 megabits (256 KB) em chip Mask ROM, otimizados para o processador Zilog Z80 a 3,58 MHz sem perda severa de taxa de quadros.",
+    format: "Cartucho Sega Card / Mega Cartucho",
+    region: "NTSC-U / PAL / Brasil (TecToy)",
+    res: "256 × 192 px (32 cores simultâneas)",
+    audio: "Texas Instruments SN76489 PSG (3 canais quadrados + 1 ruído)",
+    gameplay: "Em vez de um simples port reduzido do Mega Drive, foi recriado do zero pela Ancient. Troca parte da velocidade bruta por exploração vertical precisa, fases inéditas (como Bridge Zone e Jungle Zone) e um mapa-múndi estilo progressão de fases.",
+    pillars: [
+      "Esmeraldas do Caos escondidas diretamente dentro do cenário das fases normais, exigindo exploração atenta.",
+      "Trilha sonora adaptada e composta por Yuzo Koshiro para o chip PSG de 8 bits, criando temas exclusivos lendários como Bridge Zone.",
+      "Design de fases inédito com rolagem autônoma, fases aquáticas em labirinto e lutas contra Dr. Robotnik sem anéis de proteção."
+    ],
+    trivia: "Foi o primeiro projeto da empresa Ancient, fundada pelo lendário compositor Yuzo Koshiro com sua mãe Tomo Koshiro e sua irmã Ayano Koshiro especificamente para atender ao pedido da Sega.",
+    triviaExtra: "No Brasil, esta versão de 8 bits tornou-se um fenômeno cultural absoluto por vir gravada na memória dos modelos Master System III Compact comercializados pela TecToy."
+  },
+  {
     id: "doom",
     title: "DOOM",
     year: 1993,
@@ -95,6 +118,29 @@ const GAMES = [
     ],
     trivia: "John Carmack e John Romero cunharam o termo 'Deathmatch' durante os testes das primeiras partidas competitivas em rede local, na sede da id Software em Mesquite, Texas.",
     triviaExtra: "Em 1994, administradores de rede de universidades — e da própria Microsoft — precisaram instalar filtros para evitar que servidores caíssem por causa das partidas multiplayer."
+  },
+  {
+    id: "bomberman",
+    title: "Super Bomberman",
+    year: 1993,
+    category: "console",
+    categoryLabel: "Console (16-bit)",
+    impact: 91,
+    platform: "Super Nintendo (SNES)",
+    dev: "Hudson Soft / Produce!",
+    romDetail: "4 megabits (512 KB) em cartucho LoROM padrão, sem chips de expansão necessários.",
+    format: "Cartucho Super NES / Super Famicom",
+    region: "NTSC-J / NTSC-U / PAL",
+    res: "256 × 224 px (256 cores em tela)",
+    audio: "Sony SPC700 + S-DSP (8 canais ADPCM de 16 bits, por Jun Chikuma)",
+    gameplay: "Inaugurou a era 16 bits da franquia com arenas táticas de grade fixa. Combinou uma campanha principal totalmente cooperativa para dois jogadores com o lendário Battle Mode para até 4 jogadores simultâneos.",
+    pillars: [
+      "Pioneiro do multiplayer local de 4 jogadores no SNES através do acessório Super Multitap, co-desenvolvido pela própria Hudson Soft.",
+      "Doze arenas temáticas no Battle Mode com mecânicas próprias: esteiras rolantes, telhados que escondem bombas, portais e canos.",
+      "Sistema clássico de progressão por Power-Ups (Fire, Bomb-Up, Speed, Kick e Punch Glove) com risco constante de autodestruição."
+    ],
+    trivia: "A Hudson Soft projetou o adaptador Super Multitap (com formato da carinha de um Bomberman na versão japonesa) e o vendeu em pacote com o jogo, estabelecendo o padrão de party games de sofá nos anos 90.",
+    triviaExtra: "Foi o primeiro título da série a permitir que a campanha inteira (Normal Game, com 6 mundos e 48 estágios) fosse concluída em modo cooperativo por White Bomberman e Black Bomberman."
   },
   {
     id: "pokemon",
@@ -141,6 +187,29 @@ const GAMES = [
     ],
     trivia: "O produtor Koji Igarashi afirmou que a inspiração mecânica principal não foi Metroid, mas The Legend of Zelda — o objetivo era incentivar a exploração sobre o combate linear.",
     triviaExtra: "O jogo quase não foi aprovado pela diretoria da Konami norte-americana, que acreditava que 'o 2D estava morto' diante do avanço dos polígonos do PS1 e do N64."
+  },
+  {
+    id: "smash64",
+    title: "Super Smash Bros.",
+    year: 1999,
+    category: "console",
+    categoryLabel: "Console (64-bit)",
+    impact: 93,
+    platform: "Nintendo 64",
+    dev: "HAL Laboratory / Masahiro Sakurai & Satoru Iwata",
+    romDetail: "128 megabits (16 MB) em cartucho NUS com chip SRAM alimentado por bateria interna para salvar personagens desbloqueáveis e recordes.",
+    format: "Cartucho Nintendo 64 (NUS-NALP)",
+    region: "NTSC-J / NTSC-U / PAL",
+    res: "320 × 240 px @ 60 fps",
+    audio: "MIPS / RCP Software Mixed ADPCM (composto por Hirokazu Ando)",
+    gameplay: "Subverteu todas as regras dos jogos de luta tradicionais: substituiu barras de vida por um medidor percentual de impulso (knockback), trocou sequências complexas de botões por comandos direcionais de 1 botão e colocou até 4 ícones da Nintendo em arenas abertas com plataformas.",
+    pillars: [
+      "Sistema de porcentagem e Ring-Out: quanto maior o dano acumulado, mais longe o oponente é arremessado para fora da tela.",
+      "Comandos universais acessíveis: todos os 12 lutadores (8 iniciais e 4 secretos) usam as mesmas combinações de alavanca analógica + botão A ou B.",
+      "Arenas vivas com itens dinâmicos (Pokébolas, Bob-ombs, Home-Run Bat) e perigos de cenário baseados nas franquias clássicas da Nintendo."
+    ],
+    trivia: "O jogo nasceu como um protótipo secreto chamado 'Dragon King: The Fighting Game', programado por Masahiro Sakurai e Satoru Iwata nas horas vagas com bonecos poligonais sem rosto.",
+    triviaExtra: "Sakurai incluiu personagens da Nintendo sem pedir autorização prévia para provar que o jogo precisava de rostos carismáticos; quando apresentou o protótipo já jogável, Shigeru Miyamoto aprovou o crossover oficial."
   }
 ];
 

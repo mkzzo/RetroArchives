@@ -2,7 +2,8 @@
    RetroArchive — jogos.js
    Grade de dossiês de jogos com filtro por categoria, busca,
    ordenação e modal com abas (Ficha técnica / Jogabilidade /
-   Curiosidades). Depende de: data/jogos-data.js
+   Curiosidades / Jogar agora). Depende de: data/jogos-data.js,
+   data/game-players.js
    ========================================================= */
 (function () {
   "use strict";
@@ -40,14 +41,11 @@
     }
   }
 
-  // imagem real quando existe (game-images.js), senão o placeholder de
-  // sempre com a inicial do título — mesma lógica de consoles.js, só
-  // reescrita aqui porque cada página carrega seu próprio script
   function mediaTemplate(g, extraClass, idAttr) {
     const url = typeof GAME_IMAGES !== "undefined" ? GAME_IMAGES[g.id] : null;
     const idPart = idAttr ? ` id="${idAttr}"` : "";
     const inner = url
-      ? `<img src="${url}" alt="${g.title}" width="640" height="480" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'tile__initials',textContent:this.alt[0]}))">`
+      ? `<img src="${url}" alt="${g.title}" width="640" height="480" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="if(!this.dataset.triedRoot && this.getAttribute('src').startsWith('assets/')){this.dataset.triedRoot='1';this.src=this.getAttribute('src').slice(7);}else{this.replaceWith(Object.assign(document.createElement('span'),{className:'tile__initials',textContent:this.alt[0]}));}">`
       : `<span class="tile__initials">${g.title[0]}</span>`;
     return `<div class="tile ${extraClass}"${idPart} style="--tile-color-1:#3a2c1f;--tile-color-2:#10141a">${inner}</div>`;
   }
@@ -79,36 +77,54 @@
     if (el) el.innerHTML = items.map((i) => `<li>${i}</li>`).join("");
   }
 
-  // a aba "Jogar agora" só monta o <iframe> quando o usuário clica em
-  // carregar (evita puxar 6 jogos de uma vez) — e, pros 3 links que o
-  // material de referência deixou apontando só pra home do site de
-  // origem (não pra partida específica), mostra um aviso em vez de
-  // fingir que o jogo vai abrir
+  // Monta a aba "Jogar agora" sob demanda para evitar carregar emuladores pesados de uma só vez
   function fillPlaySlot(g) {
     const slot = document.getElementById("modal-game-play-slot");
     if (!slot) return;
     const player = typeof GAME_PLAYERS !== "undefined" ? GAME_PLAYERS[g.id] : null;
 
     if (!player) {
-      slot.innerHTML = `<p style="color:var(--color-text-muted);">Nenhum link jogável cadastrado pra este jogo ainda.</p>`;
+      slot.innerHTML = `<p style="color:var(--color-text-muted); text-align:center; padding: 20px;">Nenhum link jogável cadastrado para este jogo ainda.</p>`;
       return;
     }
 
     const warning = player.placeholder
-      ? `<div class="fact-box fact-box--warning"><p>⚠️ ${player.placeholderNote}</p></div>`
+      ? `<div class="fact-box fact-box--warning" style="margin-bottom:16px;"><p>⚠️ ${player.placeholderNote}</p></div>`
       : "";
 
     slot.innerHTML = `
       ${warning}
-      <button class="btn btn--ghost" id="load-play-btn" type="button">Carregar jogo</button>`;
+      <div style="text-align:center; padding: 28px 16px;">
+        <p style="color:var(--color-text-muted); margin-bottom: 16px; font-size: 0.95rem;">
+          Clique abaixo para inicializar o emulador web de <strong>${g.title}</strong>:
+        </p>
+        <button class="btn btn--primary" id="load-play-btn" type="button" style="padding: 10px 24px; font-size: 1rem; cursor: pointer;">
+          ▶ Iniciar Emulador
+        </button>
+      </div>`;
 
     document.getElementById("load-play-btn").addEventListener("click", () => {
       slot.innerHTML = `
         ${warning}
         <div class="game-frame">
-          <iframe src="${player.src}" width="${player.width}" height="${player.height}"
-            frameborder="0" scrolling="no" allowfullscreen loading="lazy"
-            title="Jogar ${g.title}"></iframe>
+          <iframe 
+            src="${player.src}" 
+            width="${player.width}" 
+            height="${player.height}"
+            frameborder="0" 
+            scrolling="no" 
+            allowfullscreen="true" 
+            webkitallowfullscreen="true" 
+            mozallowfullscreen="true"
+            allow="autoplay; fullscreen; gamepad; focus-without-user-activation" 
+            loading="lazy"
+            title="Jogar ${g.title}">
+          </iframe>
+        </div>
+        <div style="margin-top: 14px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+          <a href="${player.src}" target="_blank" rel="noopener noreferrer" class="btn btn--ghost" style="font-size: 0.85rem; padding: 6px 14px; text-decoration: none;">
+            ↗ Abrir em nova aba / tela cheia
+          </a>
         </div>`;
     });
   }
@@ -131,12 +147,28 @@
     document.getElementById("modal-game-trivia").textContent = g.trivia;
     document.getElementById("modal-game-trivia-extra").textContent = g.triviaExtra;
 
-    // reset to first tab
+    // Reset para a primeira aba (Ficha técnica)
     const modal = document.getElementById("modal-game");
     modal.querySelectorAll("[data-tab]").forEach((b, i) => b.classList.toggle("is-active", i === 0));
     modal.querySelectorAll("[data-panel]").forEach((p, i) => p.classList.toggle("is-active", i === 0));
 
     window.RetroArchive.openModal("modal-game");
+  }
+
+  // Ao fechar o modal, limpa o iframe para parar o áudio do jogo
+  const modalGame = document.getElementById("modal-game");
+  if (modalGame) {
+    const clearSlot = () => {
+      const slot = document.getElementById("modal-game-play-slot");
+      if (slot) slot.innerHTML = "";
+    };
+    modalGame.querySelectorAll("[data-modal-close]").forEach((b) => b.addEventListener("click", clearSlot));
+    modalGame.addEventListener("click", (e) => {
+      if (e.target === modalGame) clearSlot();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modalGame.classList.contains("is-open")) clearSlot();
+    });
   }
 
   function hwCardTemplate(key, hw) {
