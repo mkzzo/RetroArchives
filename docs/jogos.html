@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jogos Marcantes — RetroArchive</title>
+<meta name="description" content="Dossiês de jogos que definiram a indústria: Pac-Man, The Legend of Zelda, Street Fighter II, Sonic (8-bit), DOOM, Super Bomberman, Pokémon, Castlevania e Super Smash Bros.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/jogos.css">
+</head>
+<body data-page="jogos">
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="brand">
+        <svg class="brand__logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="10" width="36" height="22" rx="4" stroke="#f0c62a" stroke-width="2.5"/>
+          <path d="M13 16v12M7 22h12" stroke="#f0c62a" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="27" cy="19" r="2" fill="#f0c62a"/>
+          <circle cx="32" cy="24" r="2" fill="#f0c62a"/>
+        </svg>
+        <span>
+          <span class="brand__name">RetroArchive</span>
+          <span class="brand__tag">Historical ROM Vault</span>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="Navegação principal">
+        <a class="main-nav__link" data-nav="inicio" href="index.html">Início</a>
+        <a class="main-nav__link" data-nav="jogos" href="jogos.html">Jogos Marcantes</a>
+        <a class="main-nav__link" data-nav="consoles" href="consoles.html">Consoles &amp; Hardware</a>
+        <a class="main-nav__link" data-nav="timeline" href="timeline.html">Linha do Tempo</a>
+        <a class="main-nav__link" data-nav="graficos" href="graficos.html">Lab Gráfico &amp; CRT</a>
+        <a class="main-nav__link" data-nav="audio" href="audio.html">Jukebox &amp; Síntese</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Navegação mobile">
+      <a class="mobile-nav__link" data-nav="inicio" href="index.html">Início</a>
+      <a class="mobile-nav__link" data-nav="jogos" href="jogos.html">Jogos Marcantes</a>
+      <a class="mobile-nav__link" data-nav="consoles" href="consoles.html">Consoles &amp; Hardware</a>
+      <a class="mobile-nav__link" data-nav="timeline" href="timeline.html">Linha do Tempo</a>
+      <a class="mobile-nav__link" data-nav="graficos" href="graficos.html">Lab Gráfico &amp; CRT</a>
+      <a class="mobile-nav__link" data-nav="audio" href="audio.html">Jukebox &amp; Síntese</a>
+    </nav>
+  </header>
+
+  <main class="site-main">
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">DOSSIÊS HISTÓRICOS</div>
+          <h2>Jogos Marcantes</h2>
+          <p>Nove jogos que mudaram a indústria — da IA de fantasmas de Pac-Man ao caos multiplayer de Super Bomberman e Super Smash Bros. Clique em um card para abrir o dossiê completo e jogar.</p>
+        </div>
+
+        <div class="games-toolbar">
+          <div class="filter-bar" id="category-filters">
+            <button class="filter-btn is-active" data-category="all" type="button">Todos</button>
+            <button class="filter-btn" data-category="arcade" type="button">Arcade</button>
+            <button class="filter-btn" data-category="console" type="button">Console</button>
+            <button class="filter-btn" data-category="portable" type="button">Portátil</button>
+            <button class="filter-btn" data-category="pc" type="button">PC</button>
+          </div>
+          
+          <div class="field" style="max-width:200px;">
+            <select id="game-sort" aria-label="Ordenar por">
+              <option value="year-asc">Ano (mais antigo)</option>
+              <option value="year-desc">Ano (mais recente)</option>
+              <option value="impact-desc">Impacto histórico</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid--3" id="games-grid"></div>
+      </div>
+    </section>
+
+    
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <span>© <span id="year"></span> RetroArchive — projeto de arquivo histórico sem fins comerciais</span>
+      <span>Construído com HTML, CSS e JavaScript</span>
+    </div>
+  </footer>
+
+  <!-- Modal de dossiê do jogo -->
+  <div class="modal-overlay" id="modal-game">
+    <div class="modal">
+      <div class="modal__header">
+        <div>
+          <span class="modal__eyebrow" id="modal-game-eyebrow"></span>
+          <h3 class="modal__title" id="modal-game-title"></h3>
+        </div>
+        <button class="btn--icon" data-modal-close type="button" aria-label="Fechar">✕</button>
+      </div>
+      <div class="modal__body">
+        <div class="tile modal__media" id="modal-game-image"></div>
+        <div class="modal__tabs">
+          <button class="modal__tab is-active" data-tab="ficha" type="button">Ficha Técnica</button>
+          <button class="modal__tab" data-tab="jogabilidade" type="button">Jogabilidade</button>
+          <button class="modal__tab" data-tab="curiosidades" type="button">Curiosidades</button>
+          <button class="modal__tab" data-tab="jogar" type="button">Jogar agora</button>
+        </div>
+        <div class="modal__panel is-active" data-panel="ficha">
+          <dl class="spec-list">
+            <dt>Desenvolvedor</dt><dd id="modal-game-dev"></dd>
+            <dt>Formato</dt><dd id="modal-game-format"></dd>
+            <dt>Região</dt><dd id="modal-game-region"></dd>
+            <dt>Resolução</dt><dd id="modal-game-res"></dd>
+            <dt>Áudio</dt><dd id="modal-game-audio"></dd>
+          </dl>
+          <div class="fact-box">
+            <span class="fact-box__label">ROM / mídia</span>
+            <p id="modal-game-rom"></p>
+          </div>
+        </div>
+        <div class="modal__panel" data-panel="jogabilidade">
+          <p id="modal-game-gameplay"></p>
+          <ul class="pillars-list" id="modal-game-pillars"></ul>
+        </div>
+        <div class="modal__panel" data-panel="curiosidades">
+          <div class="fact-box">
+            <p id="modal-game-trivia"></p>
+          </div>
+          <div class="fact-box">
+            <p id="modal-game-trivia-extra"></p>
+          </div>
+        </div>
+        <div class="modal__panel" data-panel="jogar">
+          <div id="modal-game-play-slot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de hardware -->
+  <div class="modal-overlay" id="modal-hw">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title" id="modal-hw-title"></h3>
+        <button class="btn--icon" data-modal-close type="button" aria-label="Fechar">✕</button>
+      </div>
+      <div class="modal__body">
+        <p id="modal-hw-desc" style="color:var(--color-text-muted);"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/data/jogos-data.js"></script>
+  <script src="js/data/game-images.js"></script>
+  <script src="js/data/game-players.js"></script>
+  <script src="js/jogos.js"></script>
+</body>
+</html>
