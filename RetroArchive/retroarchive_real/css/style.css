@@ -588,6 +588,7 @@ ul {
 }
 
 .modal {
+  position: relative;
   width: 100%;
   max-width: 640px;
   margin-block: var(--space-xl) 0;
@@ -600,6 +601,7 @@ ul {
 .modal__header {
   position: sticky;
   top: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
