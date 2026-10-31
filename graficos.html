@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evolução Gráfica — RetroArchive</title>
+<meta name="description" content="Laboratório interativo: compare a evolução gráfica entre GTA San Andreas e GTA V com um efeito de desfoque progressivo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/graficos.css">
+</head>
+<body data-page="graficos">
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="brand">
+        <svg class="brand__logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="10" width="36" height="22" rx="4" stroke="#f0c62a" stroke-width="2.5"/>
+          <path d="M13 16v12M7 22h12" stroke="#f0c62a" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="27" cy="19" r="2" fill="#f0c62a"/>
+          <circle cx="32" cy="24" r="2" fill="#f0c62a"/>
+        </svg>
+        <span>
+          <span class="brand__name">RetroArchive</span>
+          <span class="brand__tag">Historical ROM Vault</span>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="Navegação principal">
+        <a class="main-nav__link" data-nav="inicio" href="index.html">Início</a>
+        <a class="main-nav__link" data-nav="jogos" href="jogos.html">Jogos Marcantes</a>
+        <a class="main-nav__link" data-nav="consoles" href="consoles.html">Consoles &amp; Hardware</a>
+        <a class="main-nav__link" data-nav="timeline" href="timeline.html">Linha do Tempo</a>
+        <a class="main-nav__link" data-nav="graficos" href="graficos.html">Evolução gráfica</a>
+        <a class="main-nav__link" data-nav="audio" href="audio.html">Jukebox &amp; Síntese</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Navegação mobile">
+      <a class="mobile-nav__link" data-nav="inicio" href="index.html">Início</a>
+      <a class="mobile-nav__link" data-nav="jogos" href="jogos.html">Jogos Marcantes</a>
+      <a class="mobile-nav__link" data-nav="consoles" href="consoles.html">Consoles &amp; Hardware</a>
+      <a class="mobile-nav__link" data-nav="timeline" href="timeline.html">Linha do Tempo</a>
+      <a class="mobile-nav__link" data-nav="graficos" href="graficos.html">Evolução gráfica</a>
+      <a class="mobile-nav__link" data-nav="audio" href="audio.html">Jukebox &amp; Síntese</a>
+    </nav>
+  </header>
+
+  <main class="site-main">
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">DO PIXEL AO POLÍGONO</div>
+          <h2>Evolução Gráfica</h2>
+          <p>A mesma cena, quase dez anos de distância: <strong>GTA: San Andreas</strong> (2004) e <strong>GTA V</strong> (2013). Passe o mouse (ou arraste o dedo) da esquerda para a direita: a imagem antiga se dissolve em desfoque e a nova vai ganhando nitidez.</p>
+        </div>
+
+        <div class="blur-reveal" id="blur-reveal" role="slider" tabindex="0"
+             aria-label="Comparação gráfica entre GTA San Andreas e GTA V"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+             aria-valuetext="GTA San Andreas, nítido">
+          <div class="blur-reveal__stage">
+            <img class="blur-reveal__img blur-reveal__img--a" src="assets/gta-sa.jpg" alt="Cena de GTA: San Andreas (2004)" draggable="false">
+            <img class="blur-reveal__img blur-reveal__img--b" src="assets/gta-v.jpg" alt="Mesma cena em GTA V (2013)" draggable="false">
+            <span class="blur-reveal__tag blur-reveal__tag--a">GTA: San Andreas · 2004</span>
+            <span class="blur-reveal__tag blur-reveal__tag--b">GTA V · 2013</span>
+            <span class="blur-reveal__hint" id="blur-reveal-hint" aria-hidden="true">Passe o mouse / arraste &rarr;</span>
+          </div>
+          <div class="blur-reveal__bar" aria-hidden="true"><span class="blur-reveal__fill" id="blur-reveal-fill"></span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <span>© <span id="year"></span> RetroArchive — projeto de arquivo histórico sem fins comerciais</span>
+      <span>Construído com HTML, CSS e JavaScript</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/blur-reveal.js"></script>
+</body>
+</html>

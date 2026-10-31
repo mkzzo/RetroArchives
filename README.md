@@ -16,7 +16,7 @@ O **RetroArchive** é uma aplicação web desenvolvida para entusiastas e estuda
 - **🎮 Consoles (`consoles.html`):** Fichas técnicas, gerações e especificações dos videogames clássicos.
 - **👾 Jogos (`jogos.html`):** Catálogo detalhado com títulos clássicos e dados históricos.
 - **⏳ Linha do Tempo (`timeline.html`):** Cronologia interativa da indústria dos jogos eletrônicos.
-- **🎨 Gráficos (`graficos.html`):** Evolução visual, de sprites e paletas 8-bit aos modelos 3D poligonais.
+- **🎨 Evolução gráfica (`graficos.html`):** Comparação interativa com desfoque progressivo entre GTA: San Andreas e GTA V.
 - **🔊 Áudio (`audio.html`):** História da evolução sonora (chiptune, canais de síntese, CD-ROM e trilhas orquestradas).
 
 ---
@@ -40,7 +40,7 @@ retroarchive/
 │   ├── consoles.js         # Renderização e filtros de consoles
 │   ├── jogos.js            # Renderização e filtros de jogos
 │   ├── timeline.js         # Interações da linha do tempo
-│   ├── graficos.js         # Interatividades da página de gráficos
+│   ├── blur-reveal.js      # Efeito de desfoque da página Evolução gráfica
 │   ├── audio.js            # Controles e interações de áudio
 │   └── data/
 │       ├── consoles-data.js   # Base de dados dos consoles
