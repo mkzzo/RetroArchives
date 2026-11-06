@@ -1,0 +1,47 @@
+🕹️ RETROARCHIVE - VERSÃO CORRIGIDA E PRONTA
+
+Este pacote foi reorganizado e corrigido para rodar perfeitamente em qualquer computador e ser hospedado online com 1 clique.
+
+============================================================
+O QUE FOI CORRIGIDO:
+============================================================
+1. Links dos jogos atualizados em 'js/data/game-players.js':
+   - Pac-Man (1980): Emulador HTML5
+   - The Legend of Zelda (1986): Emulador NES
+   - Street Fighter II (1991): Emulador Arcade CPS-1
+   - DOOM (1993): JS-DOS WebAssembly
+   - Pokémon (1996): Emulador Game Boy
+   - Castlevania: SOTN (1997): Emulador PS1
+2. Atributos de segurança do <iframe> corrigidos em 'js/jogos.js':
+   - Permissões 'autoplay; fullscreen; gamepad; focus-without-user-activation' adicionadas.
+   - Botão '↗ Abrir em nova aba / tela cheia' adicionado para permitir jogar mesmo em redes restritas ou com adblockers ativos.
+   - Parada automática do áudio ao fechar o modal.
+3. Estrutura de pastas unificada na raiz:
+   - Eliminada a duplicação de pastas ('retroarchive_real/retroarchive_real').
+   - 'index.html' posicionado na raiz, pronto para GitHub Pages e Vercel.
+
+============================================================
+COMO RODAR NO SEU COMPUTADOR:
+============================================================
+Método A (Recomendado - VS Code):
+1. Abra a pasta do projeto no VS Code.
+2. Com a extensão 'Live Server' instalada, clique com o botão direito em 'index.html' e escolha 'Open with Live Server'.
+
+Método B (Via Terminal):
+No terminal da pasta, execute:
+  python -m http.server 8000
+Depois abra no navegador: http://localhost:8000
+
+============================================================
+COMO PUBLICAR ONLINE PARA OUTROS PCS ACESSAREM (GRÁTIS):
+============================================================
+Opção 1 - Vercel ou Netlify (Mais rápida - menos de 1 minuto):
+1. Acesse https://vercel.com ou https://netlify.com e crie sua conta gratuita.
+2. Arraste e solte esta pasta descompactada no painel.
+3. Pronto! O site ganha um link público HTTPS (ex.: retroarchive.vercel.app) que funciona em qualquer PC ou celular.
+
+Opção 2 - GitHub Pages:
+1. Suba estes arquivos para o seu repositório no GitHub (garanta que o index.html fique na raiz do repositório).
+2. No GitHub, vá em Settings > Pages.
+3. Em Branch, selecione 'main' e '/ (root)', e clique em Save.
+4. Seu link público ficará disponível em 1 minuto!

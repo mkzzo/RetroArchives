@@ -1,0 +1,263 @@
+/* =========================================================
+   RetroArchive — graficos.css
+   Estilos exclusivos da página "Evolução Gráfica".
+   ========================================================= */
+
+/* =========================================================
+   Comparação com desfoque progressivo (San Andreas → GTA V)
+   Duas imagens sobrepostas; js/blur-reveal.js controla, via
+   variáveis CSS, o blur/opacidade de cada uma conforme a
+   posição do mouse/dedo.
+   ========================================================= */
+.blur-reveal {
+  --reveal-blur-a: 0px;
+  --reveal-blur-b: 22px;
+  --reveal-scale-a: 1;
+  --reveal-scale-b: 1.09;
+  --reveal-opacity-a: 1;
+  --reveal-opacity-b: 0;
+  --reveal-progress: 0;
+
+  max-width: 560px;
+  margin-inline: auto;
+  background: var(--color-bg-terminal);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y; /* arrasto horizontal é nosso; rolagem vertical continua livre */
+  cursor: ew-resize;
+}
+
+.blur-reveal:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+.blur-reveal__stage {
+  position: relative;
+  aspect-ratio: 794 / 918;
+  overflow: hidden; /* esconde a borda "vazada" do blur */
+  border-radius: var(--radius-sm);
+  background: #000;
+}
+
+.blur-reveal__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  will-change: filter, opacity, transform;
+}
+
+.blur-reveal__img--a {
+  opacity: var(--reveal-opacity-a);
+  filter: blur(var(--reveal-blur-a));
+  transform: scale(var(--reveal-scale-a));
+}
+
+.blur-reveal__img--b {
+  opacity: var(--reveal-opacity-b);
+  filter: blur(var(--reveal-blur-b));
+  transform: scale(var(--reveal-scale-b));
+}
+
+.blur-reveal__tag {
+  position: absolute;
+  top: var(--space-2xs);
+  padding: 4px 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background: rgba(10, 14, 20, 0.72);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+}
+
+.blur-reveal__tag--a {
+  left: var(--space-2xs);
+  opacity: calc(1 - var(--reveal-progress) * 2.4);
+}
+
+.blur-reveal__tag--b {
+  right: var(--space-2xs);
+  opacity: calc(var(--reveal-progress) * 2.4 - 1.4);
+}
+
+.blur-reveal__hint {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-sm);
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border-radius: 999px;
+  box-shadow: var(--glow-accent);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.blur-reveal.is-touched .blur-reveal__hint {
+  opacity: 0;
+}
+
+.blur-reveal__bar {
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.blur-reveal__fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--color-accent);
+  transform-origin: left center;
+  transform: scaleX(var(--reveal-progress));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blur-reveal__hint { transition: none; }
+}
+
+/* =========================================================
+   Seletor de franquias (js/comparacoes.js)
+   O par GTA usa o palco original acima, sem nenhuma mudança.
+   Os pares novos usam o palco largo (16:9) e mostram telas
+   4:3 dos clássicos inteiras, com faixas pretas como numa TV.
+   ========================================================= */
+.reveal-picker {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-2xs);
+  max-width: 960px;
+  margin: 0 auto var(--space-xs);
+  width: 100%;
+}
+
+.reveal-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  padding: var(--space-2xs) var(--space-xs);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  text-align: left;
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.reveal-chip__name {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.reveal-chip__years {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.reveal-chip:hover {
+  border-color: var(--color-border-light);
+  background: var(--color-surface-hover);
+}
+
+.reveal-chip[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  box-shadow: var(--glow-accent);
+}
+
+.reveal-chip[aria-pressed="true"] .reveal-chip__years {
+  color: var(--color-on-accent);
+}
+
+.reveal-caption {
+  max-width: 960px;
+  margin: 0 auto var(--space-sm);
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  text-wrap: balance;
+}
+
+.reveal-caption strong {
+  color: var(--color-primary);
+}
+
+.reveal-caption span {
+  white-space: nowrap;
+}
+
+/* palco largo para os pares novos (proporção vem do arquivo da imagem nova) */
+.blur-reveal--wide {
+  max-width: 960px;
+}
+
+.blur-reveal--wide .blur-reveal__stage {
+  aspect-ratio: var(--stage-ratio, 16 / 9);
+}
+
+/* no palco largo (mais baixo no celular) o aviso fica numa linha só */
+.blur-reveal--wide .blur-reveal__hint {
+  white-space: nowrap;
+  bottom: var(--space-2xs);
+}
+
+/* imagem com proporção diferente do palco: inteira, sem corte */
+.blur-reveal__img.is-fit {
+  object-fit: contain;
+}
+
+/* troca de par: some rápido, volta já com as imagens novas carregadas */
+.blur-reveal__stage {
+  transition: opacity 0.2s ease;
+}
+
+.blur-reveal__stage.is-switching {
+  opacity: 0.25;
+}
+
+@media (max-width: 640px) {
+  .reveal-picker {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .reveal-chip {
+    padding: 6px 10px;
+  }
+  .reveal-chip__name {
+    font-size: 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-chip,
+  .blur-reveal__stage { transition: none; }
+}
