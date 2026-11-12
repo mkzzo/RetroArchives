@@ -28,7 +28,7 @@ const COMPARACOES = [
     id: "zelda",
     franquia: "The Legend of Zelda",
     antigo: { titulo: "The Legend of Zelda", ano: 1986, plataforma: "NES / Famicom", src: "assets/comparacoes/zelda-1986.jpg", w: 1024, h: 768 },
-    novo: { titulo: "Zelda: Tears of the Kingdom", ano: 2023, plataforma: "Nintendo Switch", src: "assets/comparacoes/zelda-totk-2023.jpg", w: 1280, h: 720 }
+    novo: { titulo: "Zelda: Tears of the Kingdom", ano: 2023, plataforma: "Nintendo Switch", src: "assets/comparacoes/zelda-moderno.png", w: 1920, h: 1080 }
   },
   {
     id: "sf",
@@ -58,7 +58,7 @@ const COMPARACOES = [
     id: "pokemon",
     franquia: "Pokémon",
     antigo: { titulo: "Pokémon Red & Blue", ano: 1996, plataforma: "Game Boy", src: "assets/comparacoes/pokemon-red-blue-1996.jpg", w: 600, h: 418 },
-    novo: { titulo: "Pokémon Scarlet & Violet", ano: 2022, plataforma: "Nintendo Switch", src: "assets/comparacoes/pokemon-scarlet-violet-2022.jpg", w: 1519, h: 860 }
+    novo: { titulo: "Pokémon Scarlet & Violet", ano: 2022, plataforma: "Nintendo Switch", src: "assets/comparacoes/pokemon-moderno.png", w: 578, h: 325 }
   },
   {
     id: "castlevania",
